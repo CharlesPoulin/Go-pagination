@@ -14,6 +14,8 @@ type PaginationData struct {
 	PreviousPage int
 	CurrentPage  int
 	TotalPages   int
+	TwoAfter     int
+	TwoBelow     int
 }
 
 func PeopleIndexGET(c *gin.Context) {
@@ -29,7 +31,7 @@ func PeopleIndexGET(c *gin.Context) {
 	// calculate total pages for next
 	var totalRows int64
 	initializers.DB.Model(&models.Person{}).Count(&totalRows)
-	totalpages := math.Ceil(float64(totalRows / int64(perPage)))
+	totalPages := math.Ceil(float64(totalRows / int64(perPage)))
 
 	offset := (page - 1) * perPage
 	// Get the people
@@ -43,7 +45,9 @@ func PeopleIndexGET(c *gin.Context) {
 			NextPage:     page + 1,
 			PreviousPage: page - 1,
 			CurrentPage:  page,
-			TotalPages:   int(totalpages),
+			TotalPages:   int(totalPages),
+			TwoAfter:     page + 2,
+			TwoBelow:     page - 2,
 		},
 	})
 }
