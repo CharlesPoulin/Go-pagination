@@ -36,7 +36,12 @@
           {{ end }}
       </li>
       <li>
+                {{ if (lt .pagination.CurrentPage .pagination.TotalPages ) }}
             <a href="/page/{{  .pagination.NextPage }}">Next</a>
+            {{ else }}
+                        <span>Next</span>
+          {{ end }}
+
       </li>
         </ul>
 
