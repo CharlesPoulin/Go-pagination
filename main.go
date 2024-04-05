@@ -23,6 +23,7 @@ func main() {
 
 	// Routing
 	app.GET("/", controllers.PeopleIndexGET)
+	app.GET("page/:page", controllers.PeopleIndexGET) //page/3 -> page=3
 
 	// Start app
 	app.Run()
