@@ -1,12 +1,11 @@
 package controllers
 
 import (
-	"net/http"
-	"strconv"
-
 	"github.com/gin-gonic/gin"
 	"github.com/robbyklein/pages/initializers"
 	"github.com/robbyklein/pages/models"
+	"net/http"
+	"strconv"
 )
 
 type PaginationData struct {
@@ -17,8 +16,12 @@ type PaginationData struct {
 
 func PeopleIndexGET(c *gin.Context) {
 	// GET PAGE number
+	page := 1
 	pageStr := c.Param("page")
-	page, _ := strconv.Atoi(pageStr) // dont care about error here
+
+	if pageStr != "" {
+		page, _ = strconv.Atoi(pageStr) // dont care about error here
+	}
 	offset := (page - 1) * 10
 	// Get the people
 	var people []models.Person
