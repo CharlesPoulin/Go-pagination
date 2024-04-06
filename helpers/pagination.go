@@ -13,17 +13,17 @@ type PaginationData struct {
 	TwoAfter     int
 	TwoBelow     int
 	ThreeAfter   int
-	Offset	     int
+	Offset       int
+	BaseURL      string
 }
 
-func GetPaginationData(page int, perPage int, model interface{}) PaginationData {
+func GetPaginationData(page int, perPage int, model interface{}, baseURL string) PaginationData {
 	// calculate total pages for next
 	var totalRows int64
 	initializers.DB.Model(model).Count(&totalRows)
-	totalPages := math.Ceil(float64(totalRows / int64(perPage)))
+	totalPages := math.Ceil(float64(totalRows) / float64(perPage))
 	// calculate offset
 	offset := (page - 1) * perPage
-
 
 	return PaginationData{
 		NextPage:     page + 1,
@@ -34,8 +34,6 @@ func GetPaginationData(page int, perPage int, model interface{}) PaginationData 
 		TwoBelow:     page - 2,
 		ThreeAfter:   page + 3,
 		Offset:       offset,
+		BaseURL:      baseURL,
 	}
 }
-
-
-go 1.22

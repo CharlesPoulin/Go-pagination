@@ -29,7 +29,7 @@ func PeopleIndexGET(c *gin.Context) {
 		page, _ = strconv.Atoi(pageStr) // dont care about error here
 	}
 
-	pagination := helpers.GetPaginationData(page, perPage, &models.Person{})
+	pagination := helpers.GetPaginationData(page, perPage, &models.Person{}, "/people")
 
 	// Get the people
 	var people []models.Person

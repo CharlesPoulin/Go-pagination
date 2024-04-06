@@ -30,7 +30,7 @@
      <ul>
       <li>
           {{ if (gt .pagination.CurrentPage 1) }}
-            <a href="/page/{{  .pagination.PreviousPage }}">Previous</a>
+            <a href="{{ .pagination.BaseURL}}/page/{{  .pagination.PreviousPage }}">Previous</a>
           {{ else }}
             <span>Previous</span>
           {{ end }}
@@ -38,7 +38,7 @@
 
 {{ if gt .pagination.CurrentPage 3 }}
 <li>
-    <a href="/page/1">
+    <a href="/{{ .pagination.BaseURL}}page/1">
         1
     </a>
 </li>
@@ -56,7 +56,7 @@
 
 {{ if gt .pagination.CurrentPage 2 }}
 <li>
-    <a href="/page/{{.pagination.TwoBelow}}">
+    <a href="{{ .pagination.BaseURL}}/page/{{.pagination.TwoBelow}}">
         {{.pagination.TwoBelow}}
     </a>
 </li>
@@ -64,7 +64,7 @@
 
 {{ if gt .pagination.CurrentPage 1 }}
 <li>
-    <a href="/page/{{.pagination.PreviousPage}}">
+    <a href="{{ .pagination.BaseURL}}/page/{{.pagination.PreviousPage}}">
         {{.pagination.PreviousPage}}
     </a>
 </li>
@@ -78,7 +78,7 @@
 
 {{ if lt .pagination.CurrentPage .pagination.TotalPages }}
 <li>
-    <a href="/page/{{.pagination.NextPage}}">
+    <a href="{{ .pagination.BaseURL}}/page/{{.pagination.NextPage}}">
         {{.pagination.NextPage}}
     </a>
 </li>
@@ -86,7 +86,7 @@
 
 {{ if (le .pagination.TwoAfter .pagination.TotalPages) }}
 <li>
-    <a href="/page/{{.pagination.TwoAfter}}">
+    <a href="{{ .pagination.BaseURL}}/page/{{.pagination.TwoAfter}}">
         {{.pagination.TwoAfter}}
     </a>
 </li>
@@ -102,7 +102,7 @@
 
 {{ if (lt .pagination.TwoAfter .pagination.TotalPages) }}
 <li>
-    <a href="/page/{{.pagination.TotalPages}}">
+    <a href="{{ .pagination.BaseURL}}/page/{{.pagination.TotalPages}}">
         {{.pagination.TotalPages}}
     </a>
 </li>
@@ -113,7 +113,7 @@
 
       <li>
                 {{ if (lt .pagination.CurrentPage .pagination.TotalPages ) }}
-            <a href="/page/{{  .pagination.NextPage }}">Next</a>
+            <a href="{{ .pagination.BaseURL }}/page/{{ .pagination.NextPage }}">Next</a>
             {{ else }}
                         <span>Next</span>
           {{ end }}
