@@ -92,11 +92,15 @@
 </li>
 {{ end }}
 
-{{ if (lt .pagination.TwoAfter .pagination.TotalPages) }}
+{{ if (lt .pagination.ThreeAfter .pagination.TotalPages) }}
 <li>
     <span>
         ...
     </span>
+<li>
+{{ end }}
+
+{{ if (lt .pagination.TwoAfter .pagination.TotalPages) }}
 <li>
     <a href="/page/{{.pagination.TotalPages}}">
         {{.pagination.TotalPages}}

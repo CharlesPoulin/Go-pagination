@@ -16,6 +16,7 @@ type PaginationData struct {
 	TotalPages   int
 	TwoAfter     int
 	TwoBelow     int
+	ThreeAfter   int
 }
 
 func PeopleIndexGET(c *gin.Context) {
@@ -48,6 +49,7 @@ func PeopleIndexGET(c *gin.Context) {
 			TotalPages:   int(totalPages),
 			TwoAfter:     page + 2,
 			TwoBelow:     page - 2,
+			ThreeAfter:   page + 3,
 		},
 	})
 }
