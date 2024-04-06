@@ -36,6 +36,23 @@
           {{ end }}
       </li>
 
+{{ if gt .pagination.CurrentPage 3 }}
+<li>
+    <a href="/page/1">
+        1
+    </a>
+</li>
+{{ end }}
+
+{{ if gt .pagination.CurrentPage 5 }}
+<li>
+    <span>
+        ...
+    </span>
+</li>
+{{ end }}
+
+
 
 {{ if gt .pagination.CurrentPage 2 }}
 <li>
@@ -74,6 +91,20 @@
     </a>
 </li>
 {{ end }}
+
+{{ if (lt .pagination.TwoAfter .pagination.TotalPages) }}
+<li>
+    <span>
+        ...
+    </span>
+<li>
+    <a href="/page/{{.pagination.TotalPages}}">
+        {{.pagination.TotalPages}}
+    </a>
+</li>
+{{ end }}
+
+
 
 
       <li>
