@@ -2,9 +2,9 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/robbyklein/pages/helpers"
 	"github.com/robbyklein/pages/initializers"
 	"github.com/robbyklein/pages/models"
-	"math"
 	"net/http"
 	"strconv"
 )
@@ -29,27 +29,15 @@ func PeopleIndexGET(c *gin.Context) {
 		page, _ = strconv.Atoi(pageStr) // dont care about error here
 	}
 
-	// calculate total pages for next
-	var totalRows int64
-	initializers.DB.Model(&models.Person{}).Count(&totalRows)
-	totalPages := math.Ceil(float64(totalRows / int64(perPage)))
+	pagination := helpers.GetPaginationData(page, perPage, &models.Person{})
 
-	offset := (page - 1) * perPage
 	// Get the people
 	var people []models.Person
-	initializers.DB.Limit(10).Offset(offset).Find(&people)
+	initializers.DB.Limit(10).Offset(pagination.Offset).Find(&people)
 
 	// Render the page
 	c.HTML(http.StatusOK, "index.tmpl", gin.H{
-		"people": people,
-		"pagination": PaginationData{
-			NextPage:     page + 1,
-			PreviousPage: page - 1,
-			CurrentPage:  page,
-			TotalPages:   int(totalPages),
-			TwoAfter:     page + 2,
-			TwoBelow:     page - 2,
-			ThreeAfter:   page + 3,
-		},
+		"people":     people,
+		"pagination": pagination,
 	})
 }
